@@ -51,9 +51,9 @@ void main(void)
    set_tris_d(0);
    output_b(0b11111111);
    output_d(0);
-   setup_ADC(ADC_CLOCK_INTERNAL) ; 
+   setup_ADC(ADC_CLOCK_INTERNAL); 
    setup_ADC_ports(ALL_ANALOG); 
-   set_ADC_channel(0) ; 
+   set_ADC_channel(0); 
    delay_us(10);
    while(True)
    {
