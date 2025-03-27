@@ -3,8 +3,7 @@
 #fuses NOWDT, NOBROWNOUT, NOLVP
 #use delay(crystal = 4000000)
 
-int16 i;
-int8 giatri, chuc, donvi;
+int8 giatri, chuc, donvi, i;
 const char chuso[] = 
 {
    0b00111111,
@@ -21,7 +20,7 @@ const char chuso[] =
 
 void quet_led(int8 giatri)
 {
-   for (i = 0; i < 1000; i++)
+   for (i = 0; i < 255; i++)
    {
       chuc = giatri / 10;
       donvi = giatri % 10;
@@ -58,7 +57,6 @@ void main(void)
    delay_us(10);
    while(True)
    {
-      giatri = read_adc();
       giatri =  (int8) (read_adc() / 2.046);
       quet_led(giatri);
    }
