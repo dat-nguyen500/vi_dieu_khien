@@ -2,8 +2,9 @@
 #device ADC = 10
 #fuses NOWDT, NOBROWNOUT, NOLVP
 #use delay(crystal = 4000000)
-
-int8 giatri, chuc, donvi, i;
+float VREF = 5;
+int16 i;
+int8 giatri, chuc, donvi;
 const char chuso[] = 
 {
    0b00111111,
@@ -20,7 +21,7 @@ const char chuso[] =
 
 void quet_led(int8 giatri)
 {
-   for (i = 0; i < 255; i++)
+   for (i = 0; i < 1000; i++)
    {
       chuc = giatri / 10;
       donvi = giatri % 10;
@@ -29,19 +30,24 @@ void quet_led(int8 giatri)
       {
          output_b(0b11111110);
          output_d(0);
-         delay_us(300);
+         delay_us(500);
       }
       else
       {
          output_b(0b11111110);
          output_d(chuso[chuc]);
-         delay_us(300);
+         delay_us(500);
       }
       
       output_b(0b11111101);
       output_d(chuso[donvi]);
-      delay_us(300);
+      delay_us(500);
    }
+}
+
+int8 round(float a)
+{
+   return (int8) (a + 0.5);
 }
 
 void main(void)
@@ -51,13 +57,13 @@ void main(void)
    set_tris_d(0);
    output_b(0b11111111);
    output_d(0);
-   setup_ADC(ADC_CLOCK_INTERNAL); 
-   setup_ADC_ports(ALL_ANALOG); 
-   set_ADC_channel(0); 
+   setup_ADC(ADC_CLOCK_INTERNAL) ; 
+   setup_ADC_ports(AN0); 
+   set_ADC_channel(0) ; 
    delay_us(10);
    while(True)
    {
-      giatri =  (int8) (read_adc() / 2.046);
+      giatri = round(read_adc() * VREF / 10.230);
       quet_led(giatri);
    }
 }
