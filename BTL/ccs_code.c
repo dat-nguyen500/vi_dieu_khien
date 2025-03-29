@@ -2,7 +2,7 @@
 #device ADC = 10
 #fuses NOWDT, NOBROWNOUT, NOLVP
 #use delay(crystal = 4000000)
-float VREF = 5;
+float VREF = 5.0;
 int16 i;
 int8 giatri, chuc, donvi;
 const char chuso[] = 
