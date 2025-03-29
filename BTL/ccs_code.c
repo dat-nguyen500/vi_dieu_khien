@@ -2,7 +2,7 @@
 #device ADC = 10
 #fuses NOWDT, NOBROWNOUT, NOLVP
 #use delay(crystal = 4000000)
-float VREF = 5.0;
+int8 Vref = 5;
 int16 i;
 int8 giatri, chuc, donvi;
 const char chuso[] = 
@@ -63,7 +63,7 @@ void main(void)
    delay_us(10);
    while(True)
    {
-      giatri = round(read_adc() * VREF / 10.230);
+      giatri = round(read_adc() * Vref / 10.230);
       quet_led(giatri);
    }
 }
